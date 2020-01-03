@@ -35,6 +35,7 @@
 #include <sys/uio.h>
 #include <sys/socket.h>
 #include <sys/mman.h>
+#include <sys/stat.h>
 
 #include "vtest.h"
 #include "vtest_shm.h"
@@ -175,7 +176,7 @@ int vtest_block_read(struct vtest_input *input, void *buf, int size)
    if (getenv("VTEST_SAVE")) {
       if (savefd == -1) {
          savefd = open(getenv("VTEST_SAVE"),
-                       O_CLOEXEC|O_CREAT|O_WRONLY|O_TRUNC|O_DSYNC, S_IRUSR|S_IWUSR);
+                       O_CLOEXEC|O_CREAT|O_WRONLY|O_TRUNC, S_IRUSR|S_IWUSR);
          if (savefd == -1) {
             perror("error opening save file");
             exit(1);
